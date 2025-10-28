@@ -7,7 +7,7 @@ import requests, json
 def emotion_detector(text_to_analyse):
     """
     This function analyzes text using Watson AI and returns
-    a JSON string conaining scores associated with each related emotion
+    a JSON string conaining scores associated with each related emotion for the provided text
     """
     url = 'https://sn-watson-emotion.labs.skills.network/v1/watson.runtime.nlp.v1/NlpService/EmotionPredict'
     json_input = {"raw_document": {"text": text_to_analyse}}

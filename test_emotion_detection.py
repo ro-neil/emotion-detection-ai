@@ -4,7 +4,7 @@ Unit Test Module for emotion_detector
 
 import unittest
 from EmotionDetection.emotion_detection import emotion_detector
-`1`
+
 class TestEmotionDetector(unittest.TestCase):
     """
     Emotion Detector TestCase class
