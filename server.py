@@ -15,11 +15,12 @@ def emotion_analyzer():
     function. The output returned shows the emotions, their confidence scores and the dominant emotion for the provided text.
     '''
     text_to_analyze = request.args.get("textToAnalyze")
-    if text_to_analyze is not None:
-        response = emotion_detector(text_to_analyze)
-        result = f"For the given statement, the system response is 'anger': {response['anger']}, 'disgust': {response['disgust']}, 'fear': {response['fear']}, 'joy': {response['joy']} and 'sadness': {response['sadness']}. The dominant emotion is {response['dominant_emotion']}."
-        return result
-    return "Unable to analyze", 500
+    response = emotion_detector(text_to_analyze)
+    if response['dominant_emotion'] is None:
+        return "Invalid text! Please try again!"
+        
+    result = f"For the given statement, the system response is 'anger': {response['anger']}, 'disgust': {response['disgust']}, 'fear': {response['fear']}, 'joy': {response['joy']} and 'sadness': {response['sadness']}. The dominant emotion is {response['dominant_emotion']}."
+    return result
 
 @app.route("/")
 def render_index_page():

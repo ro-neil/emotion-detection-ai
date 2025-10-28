@@ -9,10 +9,15 @@ def emotion_detector(text_to_analyse):
     This function analyzes text using Watson AI and returns
     a JSON string conaining scores associated with each related emotion for the provided text
     """
-    url = 'https://sn-watson-emotion.labs.skills.network/v1/watson.runtime.nlp.v1/NlpService/EmotionPredict'
+    url = "https://sn-watson-emotion.labs.skills.network/v1/watson.runtime.nlp.v1/NlpService/EmotionPredict"
     json_input = {"raw_document": {"text": text_to_analyse}}
     header = {"grpc-metadata-mm-model-id": "emotion_aggregated-workflow_lang_en_stock"}
     response = requests.post(url, json = json_input, headers=header)
+    if response.status_code == 400:
+        emotions = ["anger", "disgust", "fear", "joy", "sadness", "dominant_emotion"]
+        blank_entries = dict.fromkeys(emotions)
+        return blank_entries
+        
     json_response = json.loads(response.text)
     emotionPredictions = json_response['emotionPredictions']
     emotions = emotionPredictions[0]['emotion']
